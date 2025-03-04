@@ -8,48 +8,64 @@ let getHumanChoice = () => {
   return userChoice;
 };
 
-let playRound = (getHumanChoice, getComputerChoice) => {
+function playGame() {
   let humanScore = 0;
   let computerScore = 0;
-  let humanWins = "Human wins this round!";
-  let computerWins = "Computer wins this round";
   //Higher order functions
-  for (let n = 0; n < 5; n++) {
+  let playRound = (getHumanChoice, getComputerChoice) => {
     let humanChoice = getHumanChoice().toLowerCase();
     let computerChoice = getComputerChoice();
 
-    if (humanChoice == "") {
-      console.log("You need to enter something");
-    } else if (
-      humanChoice !== "rock" &&
-      humanChoice !== "paper" &&
-      humanChoice !== "scissors"
-    ) {
-      console.log("Invalid choice");
+    for (let n = 1; n <= 5; n++) {
+      if (humanChoice == "") {
+        console.log("You need to enter something");
+      } else if (
+        humanChoice !== "rock" &&
+        humanChoice !== "paper" &&
+        humanChoice !== "scissors"
+      ) {
+        return console.log("Invalid choice");
+      }
     }
 
-    if (humanChoice == computerChoice) {
-      console.log("Its a tie!");
-    } else if (humanChoice == "rock" && computerChoice == "scissors") {
-      console.log(humanWins);
-      humanScore++;
+    function playSingleRound(humanChoice, computerChoice) {
+      if (humanChoice == computerChoice) {
+        console.log("Its a tie!");
+        console.log("Round: " + n); //Could this not just be || statements inside on else if - and then if these are not true, then give the computer the point?
+      } else if (humanChoice == "rock" && computerChoice == "scissors") {
+        console.log("This is round:" + n + " \nThe human won this round");
+        humanScore++;
+      } else if (humanChoice == "paper" && computerChoice == "rock") {
+        console.log("This is round:" + n + " \nThe human won this round");
+        humanScore++;
+      } else if (humanChoice == "scissors" && computerChoice == "paper") {
+        console.log("This is round:" + n + " \nThe human won this round");
+        humanScore++;
+      } else if (humanChoice == "rock" && computerChoice == "paper") {
+        console.log("This is round:" + n + " \nThe computer won this round");
+        computerScore++;
+      } else if (humanChoice == "paper" && computerChoice == "rock") {
+        console.log("This is round:" + n + " \nThe computer won this round");
+        computerScore++;
+      } else if (humanChoice == "paper" && computerChoice == "scissors") {
+        console.log("This is round:" + n + " \nThe computer won this round");
+        computerScore++;
+      } else {
+        console.log("Something went wrong!");
+      }
+      console.log("ComputerScore: " + computerScore);
+      console.log("Human: " + humanScore);
     }
-    if (humanChoice == "paper" && computerChoice == "rock") {
-      console.log(humanWins);
-      humanScore++;
-    }
-    if (humanChoice == "scissors" && computerChoice == "paper") {
-      console.log("humanWins");
-      humanScore++;
-    } else {
-      console.log(computerWins);
-      computerScore++;
-    }
-    console.log("ComputerScore: " + computerScore);
-    console.log("Human: " + humanScore);
-  }
-};
+    console.log("Total score for the computer: " + computerScore);
+    console.log("Total score for the human: " + humanScore);
 
-//console.log("ComputerChoice = " + playRound(getComputerChoice, getHumanChoice));
+    if (computerScore > humanScore) {
+      console.log("The computer wins!");
+    } else if (computerScore < humanScore) {
+      console.log("The human wins!");
+    }
+    playSingleRound(humanChoice, computerChoice);
+  };
+}
 
-playRound(getHumanChoice, getComputerChoice);
+playGame(getHumanChoice, getComputerChoice);
