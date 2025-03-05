@@ -1,4 +1,6 @@
 let choices = ["rock", "paper", "scissors"];
+let humanScore = 0;
+let computerScore = 0;
 
 let getComputerChoice = () => {
   return choices[Math.floor(Math.random() * 3)];
@@ -20,11 +22,13 @@ let getHumanChoice = () => {
   console.log("Invaild input");
   return null;
 };
+
 function playSingleRound(humanChoice, computerChoice) {
-  let humanScore = 0;
-  let computerScore = 0;
+  let humanWinner = false;
+  let computerWinner = false;
+
   if (humanChoice == computerChoice) {
-    console.log("Its a tie!");
+    return "Its a tie!";
   }
 
   if (
@@ -32,17 +36,29 @@ function playSingleRound(humanChoice, computerChoice) {
     (humanChoice == "paper" && computerChoice == "rock") ||
     (humanChoice == "scissors" && computerChoice == "paper")
   ) {
+    humanWinner = true;
     return "Human wins!";
   }
+  computerWinner = true;
   return "Computer wins!";
 }
 
-console.log(playSingleRound(getHumanChoice(), getComputerChoice()));
+for (let n = 1; n <= 5; n++) {
+  let singleRound = playSingleRound(getHumanChoice(), getComputerChoice());
 
-/* 
-Iterer over funktionen
-Resultatet fra funktionen skal være hvem der vinder. 
-Derefter plus score - playGame () skal holde styr på scoren. 
-Skal playGame tage et argument med antal runder, som også skal være en del af prompten. 
-Ud fra score kan vi definer vinder. 
-*/
+
+  if (humanWinner) {
+    humanScore++;
+    console.log("Human score: " + humanScore);
+    console.log("Computer score: " + computerScore);
+  } else if (computerWinner) {
+    computerScore++;
+    console.log("Human score: " + humanScore);
+    console.log("Computer score: " + computerScore);
+  }
+  if (n == 5) {
+    console.log(
+      `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
+    );
+  }
+}
