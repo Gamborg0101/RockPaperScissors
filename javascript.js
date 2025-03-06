@@ -24,38 +24,27 @@ let getHumanChoice = () => {
 };
 
 function playSingleRound(humanChoice, computerChoice) {
-  let humanWinner = false;
-  let computerWinner = false;
-
   if (humanChoice == computerChoice) {
-    return "Its a tie!";
+    console.log("Its a tie!");
+    return;
   }
-
   if (
     (humanChoice == "rock" && computerChoice == "scissors") ||
     (humanChoice == "paper" && computerChoice == "rock") ||
     (humanChoice == "scissors" && computerChoice == "paper")
   ) {
-    humanWinner = true;
-    return "Human wins!";
+    humanScore++;
+    console.log("Human wins!");
+    return;
   }
-  computerWinner = true;
-  return "Computer wins!";
+  computerScore++;
+  console.log("Computer wins!");
+  return;
 }
 
 for (let n = 1; n <= 5; n++) {
-  let singleRound = playSingleRound(getHumanChoice(), getComputerChoice());
+  playSingleRound(getHumanChoice(), getComputerChoice());
 
-
-  if (humanWinner) {
-    humanScore++;
-    console.log("Human score: " + humanScore);
-    console.log("Computer score: " + computerScore);
-  } else if (computerWinner) {
-    computerScore++;
-    console.log("Human score: " + humanScore);
-    console.log("Computer score: " + computerScore);
-  }
   if (n == 5) {
     console.log(
       `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
