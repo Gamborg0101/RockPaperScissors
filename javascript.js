@@ -9,13 +9,25 @@ let getComputerChoice = () => {
 function playSingleRound(humanChoice, computerChoice) {
   humanChoiceFormatted = humanChoice.toLowerCase();
   let winnerPlacement = document.querySelector(".winner");
-
   winnerPlacement.textContent = "";
 
-  console.log(humanChoiceFormatted);
+  //console.log(humanChoiceFormatted);
 
+  if (humanScore == 5) {
+    winnerDiv = document.createElement("h1");
+    winnerDiv.innerHTML = `Human wins with ${humanScore}! Congrats!`;
+    winnerDiv.style.backgroundColor = "Yellow";
+    winnerPlacement.appendChild(winnerDiv);
+  } else if (computerScore == 5) {
+    winnerDiv = document.createElement("div");
+    winnerDiv.innerHTML = `Computer wins with ${humanScore}! Congrats!`;
+    winnerDiv.style.backgroundColor = "Yellow";
+    winnerPlacement.appendChild(winnerDiv);
+  }
   if (humanChoice == computerChoice) {
-    console.log("Its a tie!");
+    tieDiv = document.createElement("div");
+    tieDiv.innerHTML = `It's a tie! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
+    winnerPlacement.appendChild(tieDiv);
     return;
   }
   if (
@@ -24,15 +36,18 @@ function playSingleRound(humanChoice, computerChoice) {
     (humanChoice == "scissors" && computerChoice == "paper")
   ) {
     humanScore++;
-    console.log("Human wins!");
+    //console.log("Human wins!");
     let humanWinsDiv = document.createElement("div");
-    humanWinsDiv.textContent = "Humans win!";
+    humanWinsDiv.innerHTML = `Human wins! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
     winnerPlacement.appendChild(humanWinsDiv);
 
     return;
   }
   computerScore++;
-  console.log("Computer wins!");
+  //console.log("Computer wins!");
+  let humanWinsDiv = document.createElement("div");
+  humanWinsDiv.innerHTML = `Computer wins! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
+  winnerPlacement.appendChild(humanWinsDiv);
   return;
 }
 
@@ -42,12 +57,3 @@ button.addEventListener("click", function (e) {
   let humanClick = e.target.value;
   playSingleRound(humanClick, getComputerChoice()); //Skal ned under for loopet.
 });
-
-// for (let n = 1; n <= 5; n++) {
-
-//   if (n == 5) {
-//     console.log(
-//       `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
-//     );
-//   }
-// }
