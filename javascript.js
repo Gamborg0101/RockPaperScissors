@@ -6,24 +6,14 @@ let getComputerChoice = () => {
   return choices[Math.floor(Math.random() * 3)];
 };
 
-let getHumanChoice = () => {
-  let userChoice = prompt("Choose between rock, papers or scissors");
-  let userChoiceTrimmed = userChoice.trim().toLowerCase();
-
-  if (userChoiceTrimmed == "") {
-    console.log("You need to enter something");
-    return null;
-  }
-  for (let choice of choices) {
-    if (userChoiceTrimmed == choice) {
-      return userChoiceTrimmed;
-    }
-  }
-  console.log("Invaild input");
-  return null;
-};
-
 function playSingleRound(humanChoice, computerChoice) {
+  humanChoiceFormatted = humanChoice.toLowerCase();
+  let winnerPlacement = document.querySelector(".winner");
+
+  winnerPlacement.textContent = "";
+
+  console.log(humanChoiceFormatted);
+
   if (humanChoice == computerChoice) {
     console.log("Its a tie!");
     return;
@@ -35,6 +25,10 @@ function playSingleRound(humanChoice, computerChoice) {
   ) {
     humanScore++;
     console.log("Human wins!");
+    let humanWinsDiv = document.createElement("div");
+    humanWinsDiv.textContent = "Humans win!";
+    winnerPlacement.appendChild(humanWinsDiv);
+
     return;
   }
   computerScore++;
@@ -42,12 +36,18 @@ function playSingleRound(humanChoice, computerChoice) {
   return;
 }
 
-for (let n = 1; n <= 5; n++) {
-  playSingleRound(getHumanChoice(), getComputerChoice());
+let button = document.getElementById("buttons");
 
-  if (n == 5) {
-    console.log(
-      `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
-    );
-  }
-}
+button.addEventListener("click", function (e) {
+  let humanClick = e.target.value;
+  playSingleRound(humanClick, getComputerChoice()); //Skal ned under for loopet.
+});
+
+// for (let n = 1; n <= 5; n++) {
+
+//   if (n == 5) {
+//     console.log(
+//       `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
+//     );
+//   }
+// }
