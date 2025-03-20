@@ -9,25 +9,22 @@ let getComputerChoice = () => {
 function playSingleRound(humanChoice, computerChoice) {
   humanChoiceFormatted = humanChoice.toLowerCase();
   let winnerPlacement = document.querySelector(".winner");
+  let winnerDiv = document.createElement("h1");
+  winnerPlacement.classList.add = "winnerDiv";
   winnerPlacement.textContent = "";
 
   //console.log(humanChoiceFormatted);
 
   if (humanScore == 5) {
-    winnerDiv = document.createElement("h1");
     winnerDiv.innerHTML = `Human wins with ${humanScore}! Congrats!`;
-    winnerDiv.style.backgroundColor = "Yellow";
     winnerPlacement.appendChild(winnerDiv);
   } else if (computerScore == 5) {
-    winnerDiv = document.createElement("div");
     winnerDiv.innerHTML = `Computer wins with ${humanScore}! Congrats!`;
-    winnerDiv.style.backgroundColor = "Yellow";
     winnerPlacement.appendChild(winnerDiv);
   }
   if (humanChoice == computerChoice) {
-    tieDiv = document.createElement("div");
-    tieDiv.innerHTML = `It's a tie! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
-    winnerPlacement.appendChild(tieDiv);
+    winnerPlacement.innerHTML = `It's a tie! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
+    winnerPlacement.appendChild(winnerDiv);
     return;
   }
   if (
