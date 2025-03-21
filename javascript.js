@@ -21,24 +21,14 @@ function playSingleRound(humanChoice, computerChoice) {
   let humanWinsDiv = document.createElement("div");
   humanWinsDiv.classList.add("humanwinsdiv");
 
-  function winnerAnnouncement(message) {
-    let messageDiv = document.createElement("h1");
-    messageDiv.classList.add("winnerdiv");
-    messageDiv.innerHTML = message;
-
-    winnerPlacement.appendChild(messageDiv);
-    winnerPlacement.style.display = "flex";
-    winnerPlacement.style.flexDirection = "column";
-  }
-
   if (humanScore == 5) {
     winnerAnnouncement(
-      `Human wins! <br> Humanscore: ${humanScore}! <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+      `Human wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
     );
     return;
   } else if (computerScore == 5) {
     winnerAnnouncement(
-      `Computer wins! <br> Humanscore: ${humanScore}! <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+      `Computer wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
     );
     return;
   }
@@ -59,8 +49,19 @@ function playSingleRound(humanChoice, computerChoice) {
     winnerPlacement.appendChild(humanWinsDiv);
     return;
   }
+
   computerScore++;
   humanWinsDiv.innerHTML = `Computer wins! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
   winnerPlacement.appendChild(humanWinsDiv);
   return;
+
+  function winnerAnnouncement(message) {
+    let messageDiv = document.createElement("h1");
+    messageDiv.classList.add("winnerdiv");
+    messageDiv.innerHTML = message;
+
+    winnerPlacement.appendChild(messageDiv);
+    winnerPlacement.style.display = "flex";
+    winnerPlacement.style.flexDirection = "column";
+  }
 }
