@@ -7,24 +7,32 @@ let getComputerChoice = () => {
 };
 
 function playSingleRound(humanChoice, computerChoice) {
-  humanChoiceFormatted = humanChoice.toLowerCase();
+  //Winnerplacement
   let winnerPlacement = document.querySelector(".winner");
-  let winnerDiv = document.createElement("h1");
-  winnerPlacement.classList.add = "winnerDiv";
+  winnerPlacement.classList.add("winnerplacement");
   winnerPlacement.textContent = "";
 
-  //console.log(humanChoiceFormatted);
+  let messageDiv = document.createElement("h1");
+  messageDiv.classList.add("winnerdiv");
+
+  let humanWinsDiv = document.createElement("div");
+  humanWinsDiv.classList.add("humanwinsdiv");
+
+  winnerPlacement.style.display = 'flex';
+  winnerPlacement.style.flexDirection = 'column'; 
+
 
   if (humanScore == 5) {
-    winnerDiv.innerHTML = `Human wins with ${humanScore}! Congrats!`;
-    winnerPlacement.appendChild(winnerDiv);
+    messageDiv.innerHTML = `Human wins with ${humanScore}! Congrats! <br>`;
+    winnerPlacement.appendChild(messageDiv);
+
   } else if (computerScore == 5) {
-    winnerDiv.innerHTML = `Computer wins with ${humanScore}! Congrats!`;
-    winnerPlacement.appendChild(winnerDiv);
+    messageDiv.innerHTML = `Computer wins with ${humanScore}! Congrats! <br>`;
+    winnerPlacement.appendChild(messageDiv);
   }
   if (humanChoice == computerChoice) {
     winnerPlacement.innerHTML = `It's a tie! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
-    winnerPlacement.appendChild(winnerDiv);
+    winnerPlacement.appendChild(messageDiv);
     return;
   }
   if (
@@ -34,7 +42,6 @@ function playSingleRound(humanChoice, computerChoice) {
   ) {
     humanScore++;
     //console.log("Human wins!");
-    let humanWinsDiv = document.createElement("div");
     humanWinsDiv.innerHTML = `Human wins! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
     winnerPlacement.appendChild(humanWinsDiv);
 
@@ -42,7 +49,6 @@ function playSingleRound(humanChoice, computerChoice) {
   }
   computerScore++;
   //console.log("Computer wins!");
-  let humanWinsDiv = document.createElement("div");
   humanWinsDiv.innerHTML = `Computer wins! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
   winnerPlacement.appendChild(humanWinsDiv);
   return;
