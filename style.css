@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  height: 100px;
+  width: 400px;
+  font-size: 24px;
+  margin-top: 50px;
+}
+
+.winner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+}
