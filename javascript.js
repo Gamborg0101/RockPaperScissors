@@ -2,52 +2,88 @@ let choices = ["rock", "paper", "scissors"];
 let humanScore = 0;
 let computerScore = 0;
 
+let button = document.getElementById("buttons");
+let winnerPlacement = document.querySelector(".winner");
+
+button.addEventListener("click", function (e) {
+  let humanClick = e.target.value;
+  playSingleRound(humanClick, getComputerChoice());
+});
+
 let getComputerChoice = () => {
   return choices[Math.floor(Math.random() * 3)];
 };
 
-let getHumanChoice = () => {
-  let userChoice = prompt("Choose between rock, papers or scissors");
-  let userChoiceTrimmed = userChoice.trim().toLowerCase();
+function winnerAnnouncement(message) {
+  let messageDiv = document.createElement("div");
+  messageDiv.classList.add("winnerdiv");
+  messageDiv.innerHTML = message;
+  messageDiv.style.fontSize = "32px";
+  messageDiv.style.fontWeight = "bold";
 
-  if (userChoiceTrimmed == "") {
-    console.log("You need to enter something");
-    return null;
-  }
-  for (let choice of choices) {
-    if (userChoiceTrimmed == choice) {
-      return userChoiceTrimmed;
-    }
-  }
-  console.log("Invaild input");
-  return null;
-};
+  winnerPlacement.appendChild(messageDiv);
+  winnerPlacement.classList.add("winnerplacement");
+  winnerPlacement.style.display = "flex";
+  winnerPlacement.style.flexDirection = "column";
+  return;
+}
 
 function playSingleRound(humanChoice, computerChoice) {
+  winnerPlacement.textContent = "";
+
+  let humanWinsDiv = document.createElement("div");
+  humanWinsDiv.classList.add("humanwinsdiv");
+
+  // if (humanScore == 5) {
+  //   winnerAnnouncement(
+  //     `Human wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+  //   );
+  //   return;
+  // } else if (computerScore == 5) {
+  //   winnerAnnouncement(
+  //     `Computer wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+  //   );
+  //   return;
+  // }
+
   if (humanChoice == computerChoice) {
-    console.log("Its a tie!");
+    humanWinsDiv.innerHTML = `It's a tie! <br> HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
+    winnerPlacement.appendChild(humanWinsDiv);
     return;
   }
+
   if (
     (humanChoice == "rock" && computerChoice == "scissors") ||
     (humanChoice == "paper" && computerChoice == "rock") ||
     (humanChoice == "scissors" && computerChoice == "paper")
   ) {
     humanScore++;
-    console.log("Human wins!");
+  } else {
+    computerScore++;
+  }
+
+  if (humanScore == 5) {
+    winnerAnnouncement(
+      `Human wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+    );
+    return;
+  } else if (computerScore == 5) {
+    winnerAnnouncement(
+      `Computer wins! <br> Humanscore: ${humanScore} <br> Computerscore: ${computerScore} <br> Congrats! <br>`
+    );
     return;
   }
-  computerScore++;
-  console.log("Computer wins!");
-  return;
+  humanWinsDiv.innerHTML = `HumanScore: ${humanScore} <br> Computerscore: ${computerScore}`;
+  winnerPlacement.appendChild(humanWinsDiv);
 }
 
-for (let n = 1; n <= 5; n++) {
-  playSingleRound(getHumanChoice(), getComputerChoice());
+/*
+Optimeringsforslag: 
+* Jeg kan lave en global pointcounter samt en maxScore == 5;
+* Så ville jeg også kunne lave et pointcheck efter hver runde i starten af RunGame-funktionen der kører alle funktionerne. 
+* Jeg kunne lave en runRound function, som kører spillogikken - bestemmer vinder og taber. Hvis computer vinder -> winner(arg1) && loser(arg1)
+* Winner / loser funktion. Kunne gøre det mere læsbart.
+* Jeg kunne lave winnerstyle og loserstyle til individuelle funktioner selv. Seperation of responsibility. 
+* Generelt er der en masse variabelnavne som kunne optimeres for løsbarheden. 
 
-  if (n == 5) {
-    console.log(
-      `Roundes are finished!\n Computer score: ${computerScore}\n Human score: ${humanScore}`
-    );
-  }
-}
+*/
